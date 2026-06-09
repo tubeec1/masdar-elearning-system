@@ -1,10 +1,13 @@
 const express = require("express");
 const cors = require("cors");
-let testRout = require("./routes/testR.js");
+let authRout = require("./routes/authRout");
+const errorHandler = require("./middleWare/GlobalErrorHandleMiddleWare");
+
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use("/", testRout);
+app.use("/api/auth", authRout);
 
+app.use(errorHandler);
 module.exports = app;
