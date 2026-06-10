@@ -43,4 +43,30 @@ let login = asyncHandler(async (req, res) => {
 
   return res.json(response);
 });
-module.exports = {signup , login}
+let getCurrentUser = asyncHandler(
+  async (req, res) => {
+    const response =
+      await authService.getCurrentUser(
+        req.user.id
+      );
+
+    res.json(response);
+  }
+);
+let updateProfile = asyncHandler(async (req, res) => {
+  const response = await authService.updateProfile(
+    req.user.id,
+    req.body
+  );
+
+  res.json(response);
+});
+let changePassword = asyncHandler(async (req, res) => {
+  const response= await authService.changePassword(
+    req.user.id,
+    req.body
+  );
+
+  res.json(response);
+});
+module.exports = {signup , login ,getCurrentUser ,updateProfile,changePassword}

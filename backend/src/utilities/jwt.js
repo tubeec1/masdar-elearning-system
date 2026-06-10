@@ -4,7 +4,7 @@ let generateToken = (user) => {
   let payload = { id: user.id, role: user.role };
 
   let token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
-
+ console.log("JWT SECRET:", process.env.JWT_SECRET);
   return token;
 };
 
@@ -14,6 +14,7 @@ let verifyToken = (token) => {
     if (!result) {
       throw new AppError("Invalid token", 401);
     }
+  
     let user = {
       id: result.id,
       role: result.role,

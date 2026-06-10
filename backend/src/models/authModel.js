@@ -43,4 +43,48 @@ let findByEmail = async (email) => {
 
   return rows[0];
 };
-module.exports = { signup ,findByEmail };
+let findById = async (id) => {
+  const [rows] = await con.execute(
+    "SELECT * FROM users WHERE id = ?",
+    [id]
+  );
+
+  return rows[0];
+};
+let updateProfile = async (
+  id,
+  fullName,
+  gender,
+  nationality,
+  country,
+  profileImage
+) => {
+  const [result] = await con.execute(
+    `UPDATE users 
+     SET fullName=?,
+         gender=?,
+         nationality=?,
+         country=?,
+         profileImage=?
+     WHERE id=?`,
+    [
+      fullName,
+      gender,
+      nationality,
+      country,
+      profileImage,
+      id
+    ]
+  );
+
+  return result;
+};
+let updatePassword = async (userId, password) => {
+  const [result] = await con.execute(
+    "UPDATE users SET password = ? WHERE id = ?",
+    [password, userId]
+  );
+
+  return result;
+};
+module.exports = { signup ,findByEmail  ,findById ,updateProfile ,updatePassword};

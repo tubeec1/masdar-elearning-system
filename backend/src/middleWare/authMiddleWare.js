@@ -8,7 +8,7 @@ let authMiddleware = async (req, res, next) => {
     throw new AppError("There is no token", 401);
   }
   let token = authorization.split(" ")[1];
-  let response = await jwtHandler.verifyToken(token);
+  let response = await jwt.verifyToken(token);
   if (response.status === false) {
     throw new AppError(response.message, 401);
   }
