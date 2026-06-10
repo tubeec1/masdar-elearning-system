@@ -1,9 +1,7 @@
-
 const authModel = require("../models/authModel.js");
 const AppError = require("../utilities/AppError.js");
 const jwtHandler = require("../utilities/jwt.js");
 const bcrypt = require("bcrypt");
-
 
 // Halkan   SIGNUP //
 let signup = async (
@@ -15,9 +13,8 @@ let signup = async (
   country,
   role,
   profileImage,
-  isActive
+  isActive,
 ) => {
-
   const user = await authModel.findByEmail(email);
 
   if (user) {
@@ -35,20 +32,18 @@ let signup = async (
     country,
     role,
     profileImage,
-    isActive
+    isActive,
   );
 
   return {
     status: true,
     message: "Welcome aboard! Your account is ready 🎉",
-    user: response
+    user: response,
   };
 };
 
-
 // Halkan LOGIN  //
 let login = async (email, password) => {
-
   const user = await authModel.findByEmail(email);
 
   if (!user || !user.password) {
@@ -72,21 +67,19 @@ let login = async (email, password) => {
     country: user.country,
     role: user.role,
     profileImage: user.profileImage,
-    isActive: user.isActive
+    isActive: user.isActive,
   };
 
   return {
     status: true,
     message: "Login successful 😄",
     token,
-    user: userData
+    user: userData,
   };
 };
 
-
-// Halkaan  CURRENT USER  //
+// Halkaan  CURRENT USER
 let getCurrentUser = async (userId) => {
-
   const user = await authModel.findById(userId);
 
   if (!user) {
@@ -95,77 +88,50 @@ let getCurrentUser = async (userId) => {
 
   return {
     status: true,
-    user
+    user,
   };
 };
 
+// Halkaan UPDATE PROFILE
+let updateProfile = async (email, data) => {
+  const user = await authModel.findByEmail(email);
 
-// Halkaan UPDATE PROFILE //
-let updateProfile = async (userId, data) => {
-
-  const user = await authModel.findById(userId);
+  console.log("USER FOUND FOR UPDATE:", user);
 
   if (!user) {
     throw new AppError("User not found", 404);
   }
 
-  await authModel.updateProfile(
-    userId,
+  console.log("user data is here from search email", user);
+
+  let profileImage = null;
+  if (!data.profileImage) {
+    profileImage = user.profileImage;
+  } else {
+    profileImage = data.profileImage;
+  }
+
+  const updatedUser = await authModel.updateProfile(
+    email,
     data.fullName,
     data.gender,
     data.nationality,
     data.country,
-    data.profileImage || null
+    profileImage,
   );
-
-  const updatedUser = await authModel.findById(userId);
 
   return {
     status: true,
     message: "Profile updated successfully",
-    user: updatedUser
+    user: updatedUser,
   };
 };
 
-
-// Halkaan CHANGE PASSWORD //
-let changePassword = async (userId, data) => {
-
-  if (!data.currentPassword || !data.newPassword) {
-    throw new AppError("Both currentPassword and newPassword are required", 400);
-  }
-
-  const user = await authModel.findById(userId);
-
-  if (!user) {
-    throw new AppError("User not found", 404);
-  }
-console.log("DB USER PASSWORD:", user.password);
-console.log("INPUT PASSWORD:", data.currentPassword);
-  const isMatch = await bcrypt.compare(
-    data.currentPassword,
-    user.password
-  );
-
-  if (!isMatch) {
-    throw new AppError("Current password is wrong", 401);
-  }
-
-  const hashedPassword = await bcrypt.hash(data.newPassword, 10);
-
-  await authModel.updatePassword(userId, hashedPassword);
-
-  return {
-    status: true,
-    message: "Password changed successfully"
-  };
-};
-
+// Halkaan CHANGE PASSWORD
 
 module.exports = {
   signup,
   login,
   getCurrentUser,
   updateProfile,
-  changePassword
 };

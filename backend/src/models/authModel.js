@@ -9,9 +9,8 @@ let signup = async (
   country,
   role,
   profileImage,
-  isActive
+  isActive,
 ) => {
-
   const [result] = await con.execute(
     `INSERT INTO users 
     (fullName, email, password, gender, nationality, country, profileImage, role, isActive)
@@ -25,14 +24,13 @@ let signup = async (
       country,
       profileImage,
       role,
-      isActive
-    ]
+      isActive,
+    ],
   );
 
-  const [rows] = await con.execute(
-    "SELECT * FROM users WHERE id = ?",
-    [result.insertId]
-  );
+  const [rows] = await con.execute("SELECT * FROM users WHERE id = ?", [
+    result.insertId,
+  ]);
 
   return rows[0];
 };
@@ -44,20 +42,17 @@ let findByEmail = async (email) => {
   return rows[0];
 };
 let findById = async (id) => {
-  const [rows] = await con.execute(
-    "SELECT * FROM users WHERE id = ?",
-    [id]
-  );
+  const [rows] = await con.execute("SELECT * FROM users WHERE id = ?", [id]);
 
   return rows[0];
 };
 let updateProfile = async (
-  id,
+  email,
   fullName,
   gender,
   nationality,
   country,
-  profileImage
+  profileImage,
 ) => {
   const [result] = await con.execute(
     `UPDATE users 
@@ -66,15 +61,8 @@ let updateProfile = async (
          nationality=?,
          country=?,
          profileImage=?
-     WHERE id=?`,
-    [
-      fullName,
-      gender,
-      nationality,
-      country,
-      profileImage,
-      id
-    ]
+     WHERE email=?`,
+    [fullName, gender, nationality, country, profileImage, email],
   );
 
   return result;
@@ -82,9 +70,15 @@ let updateProfile = async (
 let updatePassword = async (userId, password) => {
   const [result] = await con.execute(
     "UPDATE users SET password = ? WHERE id = ?",
-    [password, userId]
+    [password, userId],
   );
 
   return result;
 };
-module.exports = { signup ,findByEmail  ,findById ,updateProfile ,updatePassword};
+module.exports = {
+  signup,
+  findByEmail,
+  findById,
+  updateProfile,
+  updatePassword,
+};

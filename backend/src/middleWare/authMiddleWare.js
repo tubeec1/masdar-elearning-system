@@ -1,5 +1,5 @@
 let jwt = require("../utilities/jwt");
-let AppError = require ("../utilities/AppError");
+let AppError = require("../utilities/AppError");
 let authMiddleware = async (req, res, next) => {
   let authorization = req.headers.authorization;
   console.log("authorization header:", authorization);
@@ -13,6 +13,7 @@ let authMiddleware = async (req, res, next) => {
     throw new AppError(response.message, 401);
   }
   req.user = response;
+  console.log("Authenticated user:", req.user);
   next();
 };
 

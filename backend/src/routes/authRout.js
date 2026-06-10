@@ -1,30 +1,30 @@
 const express = require("express");
 const { validationMiddleware } = require("../middleWare/validationMiddeleWare");
-let authMiddleware = require ("../middleWare/authMiddleWare.js")
+let authMiddleware = require("../middleWare/authMiddleWare.js");
 const authControler = require("../controrolles/authContoler");
 let {
-  signupValidator , loginValidator
- 
-} = require("../validators/authValidation"); 
+  signupValidator,
+  loginValidator,
+} = require("../validators/authValidation");
 
 const router = express.Router();
 
-router.post("/signup", signupValidator,validationMiddleware,authControler.signup);
-router.post("/login", loginValidator,validationMiddleware, authControler.login);
-router.get(
-  "/me",
-  authMiddleware,
- authControler.getCurrentUser
+router.post(
+  "/signup",
+  signupValidator,
+  validationMiddleware,
+  authControler.signup,
 );
-router.put(
-  "/me-updated",
-  authMiddleware,
-  authControler.updateProfile
+
+router.post(
+  "/login",
+  loginValidator,
+  validationMiddleware,
+  authControler.login,
 );
-router.put(
-  "/change-password",
-  authMiddleware,
-authControler.changePassword
-);
+
+router.get("/me", authMiddleware, authControler.getCurrentUser);
+
+router.put("/me-updated", authMiddleware, authControler.updateProfile);
 
 module.exports = router;

@@ -1,10 +1,10 @@
 let jwt = require("jsonwebtoken");
 const AppError = require("./AppError");
 let generateToken = (user) => {
-  let payload = { id: user.id, role: user.role };
+  let payload = { id: user.id, email: user.email, role: user.role };
 
   let token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
- console.log("JWT SECRET:", process.env.JWT_SECRET);
+  console.log("JWT SECRET:", process.env.JWT_SECRET);
   return token;
 };
 
@@ -14,9 +14,10 @@ let verifyToken = (token) => {
     if (!result) {
       throw new AppError("Invalid token", 401);
     }
-  
+
     let user = {
       id: result.id,
+      email: result.email,
       role: result.role,
     };
     return user;
