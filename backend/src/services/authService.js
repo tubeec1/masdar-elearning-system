@@ -127,8 +127,6 @@ let updateProfile = async (email, data) => {
   };
 };
 
-// Halkaan CHANGE PASSWORD
-
 module.exports = {
   signup,
   login,
