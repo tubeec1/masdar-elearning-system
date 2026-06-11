@@ -111,12 +111,17 @@ let updateProfile = async (email, data) => {
     profileImage = data.profileImage;
   }
 
+  let fullName = data.fullName || user.fullName;
+  let gender = data.gender || user.gender;
+  let nationality = data.nationality || user.nationality;
+  let country = data.country || user.country;
+
   const updatedUser = await authModel.updateProfile(
     email,
-    data.fullName,
-    data.gender,
-    data.nationality,
-    data.country,
+    fullName,
+    gender,
+    nationality,
+    country,
     profileImage,
   );
 
