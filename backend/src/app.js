@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 let authRout = require("./routes/authRout");
+let categoryRout = require("./routes/categoryRoute")
 const errorHandler = require("./middleWare/GlobalErrorHandleMiddleWare");
 const path = require("path");
 
@@ -10,6 +11,7 @@ app.use("/public", express.static(path.join(__dirname, "../public")));
 app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRout);
+app.use("/api/categories" ,categoryRout)
 
 app.use(errorHandler);
 module.exports = app;
