@@ -36,7 +36,7 @@ let signup = async (
   );
 
   return {
-    status: true,
+    success: true,
     message: "Welcome aboard! Your account is ready 🎉",
     user: response,
   };
@@ -71,7 +71,7 @@ let login = async (email, password) => {
   };
 
   return {
-    status: true,
+    success: true,
     message: "Login successful 😄",
     token,
     user: userData,
@@ -87,7 +87,7 @@ let getCurrentUser = async (userId) => {
   }
 
   return {
-    status: true,
+    success: true,
     user,
   };
 };
@@ -126,7 +126,7 @@ let updateProfile = async (email, data) => {
   );
 
   return {
-    status: true,
+    success: true,
     message: "Profile updated successfully",
     user: updatedUser,
   };
