@@ -1,13 +1,11 @@
+const AppError = require("../utilities/AppError");
 
-let AppError = require ("../utilities/AppError")
-const authorize = (role) => {
+const authorize = (...roles) => {
   return (req, res, next) => {
-
-    if (!req.user || req.user.role !== role) {
-     
-       throw new AppError("only admin can perform this action")
-      
-      
+    if (!req.user || !roles.includes(req.user.role)) {
+      return next(
+        new AppError("You are not authorized to perform this action")
+      );
     }
 
     next();
