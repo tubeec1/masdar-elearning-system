@@ -1,11 +1,12 @@
+
 const multer = require("multer");
 const path = require("path");
 
-const storage = multer.diskStorage({
+// ================= CATEGORY =================
+const categoryStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "public/categories"); 
+    cb(null, "public/categories");
   },
-
   filename: function (req, file, cb) {
     cb(
       null,
@@ -14,6 +15,24 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage });
+const uploadCategory = multer({ storage: categoryStorage });
 
-module.exports = upload;
+// ================= COURSE =================
+const courseStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "public/courses");
+  },
+  filename: function (req, file, cb) {
+    cb(
+      null,
+      "course-" + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
+
+const uploadCourse = multer({ storage: courseStorage });
+
+module.exports = {
+  uploadCategory,
+  uploadCourse,
+};
