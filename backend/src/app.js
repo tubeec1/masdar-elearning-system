@@ -1,23 +1,28 @@
 const express = require("express");
 const cors = require("cors");
-let authRout = require("./routes/authRout");
-let categoryRout = require("./routes/categoryRoute")
-const errorHandler = require("./middleWare/GlobalErrorHandleMiddleWare");
+
+const authRout = require("./routes/authRout");
+const categoryRout = require("./routes/categoryRoute");
 const courseRoute = require("./routes/courseRoute");
+const errorHandler = require("./middleWare/GlobalErrorHandleMiddleWare");
+
 const path = require("path");
 
 const app = express();
+
 // Static files
 app.use("/public", express.static(path.join(__dirname, "../public")));
+
+// Middlewares
 app.use(cors());
 app.use(express.json());
-app.use("/api/auth", authRout);
-<<<<<<< HEAD
-app.use("/api/categories" ,categoryRout)
-=======
-app.use("/api/categories" ,categoryRout);
-app.use("/api/courses", courseRoute);
->>>>>>> muna
 
+// Routes
+app.use("/api/auth", authRout);
+app.use("/api/categories", categoryRout);
+app.use("/api/courses", courseRoute);
+
+// Global Error Handler
 app.use(errorHandler);
+
 module.exports = app;
