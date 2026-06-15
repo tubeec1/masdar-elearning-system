@@ -2,8 +2,8 @@ const courseService = require("../services/courseService");
 const asyncHandler = require("../utilities/asyncHandler");
 
 const createCourse = asyncHandler(async (req, res) => {
- console.log("HEADERS:", req.headers["content-type"]);
-console.log("FILE:", req.file);
+  console.log("HEADERS:", req.headers["content-type"]);
+  console.log("FILE:", req.file);
   const {
     categoryId,
     teacherId,
@@ -15,11 +15,10 @@ console.log("FILE:", req.file);
     level,
     price,
     totalStudents,
-    status =true,
+    status = "draft",
   } = req.body;
 
-  const thumbnail =
-    req.file?.filename || req.body.thumbnail || null;
+  const thumbnail = req.file?.filename || req.body.thumbnail || null;
 
   const introVideo = req.body.introVideo || null;
 
@@ -36,7 +35,7 @@ console.log("FILE:", req.file);
     level,
     price,
     totalStudents,
-    status
+    status,
   );
 
   res.json(response);
@@ -48,9 +47,7 @@ const getAllCourses = asyncHandler(async (req, res) => {
 });
 
 const getCourseById = asyncHandler(async (req, res) => {
-  const response = await courseService.getCourseById(
-    req.params.id
-  );
+  const response = await courseService.getCourseById(req.params.id);
 
   res.json(response);
 });
@@ -72,8 +69,7 @@ const updateCourse = asyncHandler(async (req, res) => {
     status,
   } = req.body;
 
-  const thumbnail =
-    req.file?.filename || req.body.thumbnail || null;
+  const thumbnail = req.file?.filename || req.body.thumbnail || null;
 
   const introVideo = req.body.introVideo || null;
 
@@ -91,16 +87,14 @@ const updateCourse = asyncHandler(async (req, res) => {
     level,
     price,
     totalStudents,
-    status
+    status,
   );
 
   res.json(response);
 });
 
 const deleteCourse = asyncHandler(async (req, res) => {
-  const response = await courseService.deleteCourse(
-    req.params.id
-  );
+  const response = await courseService.deleteCourse(req.params.id);
 
   res.json(response);
 });

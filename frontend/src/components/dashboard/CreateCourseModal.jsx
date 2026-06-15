@@ -14,20 +14,20 @@ const CreateCourseModal = ({
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-      <div className="bg-white w-full max-w-4xl rounded-3xl shadow-2xl max-h-[90vh] overflow-y-auto">
-        {/* Header */}
-        <div className="sticky top-0 bg-white border-b border-slate-200 px-6 py-5 flex items-center justify-between">
+      <div className="bg-white w-full max-w-5xl rounded-3xl shadow-2xl max-h-[90vh] overflow-y-auto">
+        <div className="sticky top-0 bg-white border-b border-slate-200 px-6 py-5 flex items-center justify-between z-10">
           <div>
             <h2 className="text-2xl font-bold text-[#0F172A]">
               Create New Course
             </h2>
 
             <p className="text-slate-500 text-sm mt-1">
-              Fill course information below.
+              Fill all required course information below.
             </p>
           </div>
 
           <button
+            type="button"
             onClick={() => setOpen(false)}
             className="w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 flex items-center justify-center"
           >
@@ -35,10 +35,8 @@ const CreateCourseModal = ({
           </button>
         </div>
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
           <div className="grid md:grid-cols-2 gap-5">
-            {/* Category */}
             <div>
               <label className="block mb-2 text-sm font-medium">Category</label>
 
@@ -47,32 +45,37 @@ const CreateCourseModal = ({
                 value={formData.categoryId}
                 onChange={handleChange}
                 className="w-full border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#10B981] outline-none"
+                required
               >
                 <option value="">Select Category</option>
 
                 {categories.map((category) => (
-                  <option key={category.id} value={category.id}>
+                  <option
+                    key={category.id || category._id}
+                    value={category.id || category._id}
+                  >
                     {category.name}
                   </option>
                 ))}
               </select>
             </div>
 
-            {/* Title */}
             <div>
-              <label className="block mb-2 text-sm font-medium">Title</label>
+              <label className="block mb-2 text-sm font-medium">
+                Course Title
+              </label>
 
               <input
                 type="text"
                 name="title"
                 value={formData.title}
                 onChange={handleChange}
-                placeholder="Course title"
+                placeholder="Ultimate React Course"
                 className="w-full border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#10B981] outline-none"
+                required
               />
             </div>
 
-            {/* Slug */}
             <div>
               <label className="block mb-2 text-sm font-medium">Slug</label>
 
@@ -81,12 +84,12 @@ const CreateCourseModal = ({
                 name="slug"
                 value={formData.slug}
                 onChange={handleChange}
-                placeholder="react-development-bootcamp"
+                placeholder="ultimate-react-course"
                 className="w-full border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#10B981] outline-none"
+                required
               />
             </div>
 
-            {/* Duration */}
             <div>
               <label className="block mb-2 text-sm font-medium">Duration</label>
 
@@ -97,10 +100,10 @@ const CreateCourseModal = ({
                 onChange={handleChange}
                 placeholder="8 Weeks"
                 className="w-full border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#10B981] outline-none"
+                required
               />
             </div>
 
-            {/* Language */}
             <div>
               <label className="block mb-2 text-sm font-medium">Language</label>
 
@@ -111,10 +114,10 @@ const CreateCourseModal = ({
                 onChange={handleChange}
                 placeholder="English"
                 className="w-full border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#10B981] outline-none"
+                required
               />
             </div>
 
-            {/* Level */}
             <div>
               <label className="block mb-2 text-sm font-medium">Level</label>
 
@@ -123,32 +126,47 @@ const CreateCourseModal = ({
                 value={formData.level}
                 onChange={handleChange}
                 className="w-full border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#10B981] outline-none"
+                required
               >
                 <option value="">Select Level</option>
-
                 <option value="Beginner">Beginner</option>
-
                 <option value="Intermediate">Intermediate</option>
-
                 <option value="Advanced">Advanced</option>
               </select>
             </div>
 
-            {/* Price */}
             <div>
-              <label className="block mb-2 text-sm font-medium">Price</label>
+              <label className="block mb-2 text-sm font-medium">
+                Price ($)
+              </label>
 
               <input
                 type="number"
                 name="price"
                 value={formData.price}
                 onChange={handleChange}
-                placeholder="100"
+                placeholder="99"
                 className="w-full border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#10B981] outline-none"
+                required
               />
             </div>
 
-            {/* Status */}
+            <div>
+              <label className="block mb-2 text-sm font-medium">
+                Total Students
+              </label>
+
+              <input
+                type="number"
+                name="totalStudents"
+                value={formData.totalStudents}
+                onChange={handleChange}
+                placeholder="500"
+                className="w-full border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#10B981] outline-none"
+                required
+              />
+            </div>
+
             <div>
               <label className="block mb-2 text-sm font-medium">Status</label>
 
@@ -158,14 +176,12 @@ const CreateCourseModal = ({
                 onChange={handleChange}
                 className="w-full border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#10B981] outline-none"
               >
-                <option value="active">Active</option>
-
+                <option value="published">Published</option>
                 <option value="draft">Draft</option>
               </select>
             </div>
           </div>
 
-          {/* Intro Video */}
           <div>
             <label className="block mb-2 text-sm font-medium">
               Intro Video URL
@@ -176,41 +192,42 @@ const CreateCourseModal = ({
               name="introVideo"
               value={formData.introVideo}
               onChange={handleChange}
-              placeholder="https://youtube.com/..."
+              placeholder="https://youtube.com/watch?v=..."
               className="w-full border border-slate-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#10B981] outline-none"
             />
           </div>
 
-          {/* Thumbnail */}
           <div>
-            <label className="block mb-2 text-sm font-medium">Thumbnail</label>
+            <label className="block mb-2 text-sm font-medium">
+              Course Thumbnail
+            </label>
 
             <input
               type="file"
               accept="image/*"
               onChange={handleFileChange}
               className="w-full border border-slate-300 rounded-xl px-4 py-3"
+              required
             />
           </div>
 
-          {/* Description */}
           <div>
             <label className="block mb-2 text-sm font-medium">
               Description
             </label>
 
             <textarea
-              rows="5"
+              rows="6"
               name="description"
               value={formData.description}
               onChange={handleChange}
-              placeholder="Course description..."
+              placeholder="Write detailed course description..."
               className="w-full border border-slate-300 rounded-xl px-4 py-3 resize-none focus:ring-2 focus:ring-[#10B981] outline-none"
+              required
             />
           </div>
 
-          {/* Footer */}
-          <div className="flex justify-end gap-3 pt-4 border-t">
+          <div className="flex justify-end gap-3 pt-5 border-t border-slate-200">
             <button
               type="button"
               onClick={() => setOpen(false)}
@@ -222,7 +239,7 @@ const CreateCourseModal = ({
             <button
               type="submit"
               disabled={loading}
-              className="px-6 py-3 rounded-xl bg-[#10B981] text-white font-semibold hover:bg-emerald-600 transition"
+              className="px-6 py-3 rounded-xl bg-[#10B981] text-white font-semibold hover:bg-emerald-600 transition disabled:opacity-70"
             >
               {loading ? "Creating..." : "Create Course"}
             </button>

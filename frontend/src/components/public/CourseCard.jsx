@@ -1,19 +1,16 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { HiAcademicCap, HiClock, HiUser, HiArrowRight } from "react-icons/hi";
 
 const CourseCard = ({ course }) => {
   return (
     <article className="group bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-      {/* Thumbnail */}
       <div className="relative overflow-hidden h-56">
         <img
-          src={`${course.thumbnail}`}
+          src={`http://localhost:5000/public/courses/${course.thumbnail}`}
           alt={course.title}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
 
-        {/* Category Badge */}
         <div className="absolute top-4 left-4">
           <span className="bg-[#10B981] text-white text-xs font-semibold px-3 py-1 rounded-full">
             {course.categoryName || "Course"}
@@ -21,23 +18,21 @@ const CourseCard = ({ course }) => {
         </div>
       </div>
 
-      {/* Content */}
       <div className="p-6">
-        {/* Title */}
         <h3 className="text-xl font-bold text-[#0F172A] line-clamp-2 mb-3">
           {course.title}
         </h3>
 
-        {/* Description */}
         <p className="text-slate-500 text-sm leading-relaxed line-clamp-3 mb-5">
           {course.description}
         </p>
 
-        {/* Meta */}
         <div className="space-y-3 mb-5">
           <div className="flex items-center gap-2 text-slate-600 text-sm">
             <HiUser className="text-[#10B981]" />
-            <span>{course.instructor || "Masdar Instructor"}</span>
+            <span>
+              {course.teacherName || course.instructor || "Instructor"}
+            </span>
           </div>
 
           <div className="flex items-center gap-2 text-slate-600 text-sm">
@@ -51,7 +46,6 @@ const CourseCard = ({ course }) => {
           </div>
         </div>
 
-        {/* Price + Button */}
         <div className="flex items-center justify-between pt-4 border-t border-slate-100">
           <div>
             <p className="text-xs text-slate-400">Course Fee</p>
@@ -62,7 +56,7 @@ const CourseCard = ({ course }) => {
           </div>
 
           <Link
-            to={`/courses/${course._id}`}
+            to={`/courses/${course.id || course._id}`}
             className="inline-flex items-center gap-2 bg-[#10B981] hover:bg-emerald-600 text-white px-4 py-2.5 rounded-xl font-medium transition-all duration-300"
           >
             Details
