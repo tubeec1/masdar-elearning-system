@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../../features/auth/authSlice";
 import {
   HiCheckCircle,
   HiMail,
@@ -21,6 +23,7 @@ const Signin = () => {
 
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -73,10 +76,14 @@ const Signin = () => {
 
       const data = await response.json();
 
+      console.log("Login Response:", data);
+
       if (data.success) {
         toast.success(data.message || "Login successful");
 
         localStorage.setItem("token", data.token);
+
+        dispatch(loginSuccess({ user: data.user, token: data.token }));
 
         setTimeout(() => {
           navigate("/");

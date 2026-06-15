@@ -17,7 +17,7 @@ router.post(
 );
 
 router.post(
-  "/login",
+  "/signin",
   loginValidator,
   validationMiddleware,
   authControler.login,
