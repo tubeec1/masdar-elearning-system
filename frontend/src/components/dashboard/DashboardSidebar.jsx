@@ -79,8 +79,8 @@ const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }) => {
       icon: HiOutlineBookOpen,
     },
     {
-      name: "My Enrollments",
-      path: "/dashboard/enrollments",
+      name: "All Courses",
+      path: "/dashboard/all-courses",
       icon: HiOutlineAcademicCap,
     },
     {

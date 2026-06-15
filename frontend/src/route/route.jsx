@@ -20,6 +20,8 @@ import Profile from "../pages/dashboard/Profile";
 import Categories from "../pages/dashboard/Categories";
 import Users from "../pages/dashboard/Users";
 import Enrollments from "../pages/dashboard/Enrollments";
+import AllCourses from "../pages/dashboard/AllCourses";
+import ShowCours from "../pages/dashboard/ShowCours";
 
 // Admin + Teacher
 import DashboardCourses from "../pages/dashboard/DashboardCourses";
@@ -85,6 +87,14 @@ const routes = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />,
+      },
+      {
+        path: "all-courses",
+        element: <AllCourses />,
+      },
+      {
+        path: "show-course",
+        element: <ShowCours />,
       },
     ],
   },
