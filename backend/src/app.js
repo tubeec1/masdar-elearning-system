@@ -5,6 +5,7 @@ const authRout = require("./routes/authRout");
 const categoryRout = require("./routes/categoryRoute");
 const courseRoute = require("./routes/courseRoute");
 const errorHandler = require("./middleWare/GlobalErrorHandleMiddleWare");
+const userRoute = require("./routes/userRoute");
 
 const path = require("path");
 
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use("/api/auth", authRout);
 app.use("/api/categories", categoryRout);
 app.use("/api/courses", courseRoute);
+app.use("/api/users", userRoute);
 
 // Global Error Handler
 app.use(errorHandler);

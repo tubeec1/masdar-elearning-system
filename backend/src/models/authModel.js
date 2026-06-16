@@ -75,10 +75,17 @@ let updatePassword = async (userId, password) => {
 
   return result;
 };
+
+//read users
+let readUsers = async () => {
+  const [rows] = await con.execute("SELECT * FROM users");
+  return rows;
+};
 module.exports = {
   signup,
   findByEmail,
   findById,
   updateProfile,
   updatePassword,
+  readUsers,
 };
