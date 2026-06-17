@@ -1,7 +1,7 @@
 const multer = require("multer");
 const path = require("path");
 
-// ================= CATEGORY UPLOAD =================
+   
 const categoryStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "public/categories");
@@ -15,7 +15,7 @@ const uploadCategory = multer({
   storage: categoryStorage,
 });
 
-// ================= COURSE UPLOAD =================
+
 const courseStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "public/courses");
